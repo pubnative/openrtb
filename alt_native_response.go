@@ -1,0 +1,56 @@
+package openrtb
+
+import (
+	"encoding/json"
+	"io"
+)
+
+type AltNativeAdm struct {
+	Native *AltNativeResponse
+}
+
+type AltNativeResponse struct {
+	Ver         *int            `json:"ver,omitempty"` // Version of the Native Markup version in use
+	Assets      []ResponseAsset `json:"assets"`        // Array of Asset Objects
+	Link        *Link           `json:"link"`
+	Imptrackers []string        `json:"imptrackers,omitempty"`
+	Jstracker   *string         `json:"jstracker, omitempty"`
+	Ext         Extensions      `json:"ext,omitempty"`
+}
+
+//Parses an OpenRTB Native Response from an io.Reader
+func ParseAltNativeAdm(reader io.Reader) (adm *AltNativeAdm, err error) {
+	dec := json.NewDecoder(reader)
+	if err = dec.Decode(&adm); err != nil {
+		return nil, err
+	}
+	adm.Native = adm.Native.WithDefaults()
+	return adm, nil
+}
+
+//Parses an OpenRTB Native Response from bytes
+func ParseAltNativeAdmBytes(data []byte) (adm *AltNativeAdm, err error) {
+	if err = json.Unmarshal(data, &adm); err != nil {
+		return nil, err
+	}
+	adm.Native = adm.Native.WithDefaults()
+	return adm, nil
+}
+
+// Applies AltNativeResponse defaults
+func (resp *AltNativeResponse) WithDefaults() *AltNativeResponse {
+	if resp.Ver == nil {
+		resp.Ver = new(int)
+		*resp.Ver = 1
+	}
+	for id, asset := range resp.Assets {
+		resp.Assets[id] = *asset.WithDefaults()
+	}
+	return resp
+}
+
+// Set the Asset
+func (nativeResponse *AltNativeResponse) SetAssets(a *ResponseAsset) *AltNativeResponse {
+	nativeResponse.Assets = append(nativeResponse.Assets, *a)
+	return nativeResponse
+}

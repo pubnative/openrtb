@@ -4,16 +4,17 @@ var sptr = func(s string) *string { return &s }
 var iptr = func(i int) *int { return &i }
 
 var testFixtures = struct {
-	simpleBanner         []byte
-	expandableCreative   []byte
-	simpleResponse       []byte
-	simpleNativeResponse []byte
-	simpleLink           Link
-	simpleImg            ResponseImg
-	simpleTitle          ResponseTitle
-	simpleData           ResponseData
-	installData          ResponseData
-	fullLink             Link
+	simpleBanner            []byte
+	expandableCreative      []byte
+	simpleResponse          []byte
+	simpleNativeResponse    []byte
+	simpleAltNativeResponse []byte
+	simpleLink              Link
+	simpleImg               ResponseImg
+	simpleTitle             ResponseTitle
+	simpleData              ResponseData
+	installData             ResponseData
+	fullLink                Link
 }{
 	simpleBanner: []byte(`
 {
@@ -174,6 +175,59 @@ var testFixtures = struct {
 {
     "native": {
         "ver": "1",
+        "link": {
+            "url": "deeplink://deeplink/url/into/app",
+            "fallback": "http: //i.am.a/URL",
+            "clicktrackers": [
+                "http: //a.com/a",
+                "http: //b.com/b"
+            ]
+        },
+        "imptrackers": [
+            "http: //a.com/a",
+            "http: //b.com/b"
+        ],
+        "assets": [
+            {
+                "id": 1,
+                "title": {
+                    "text": "InstallBOA"
+                },
+                "link": {
+                    "url": "http: //i.am.a/URL"
+                }
+            },
+            {
+                "id": 2,
+                "data": {
+                    "value": "5"
+                }
+            },
+            {
+                "id": 3,
+                "img": {
+                    "url": "http: //cdn.mobad.com/ad.png",
+                    "w": 64,
+                    "h": 64
+                }
+            },
+            {
+                "id": 4,
+                "data": {
+                    "value": "Install"
+                },
+                "link": {
+                    "url": "http: //i.am.a/URL"
+                }
+            }
+        ]
+    }
+}
+`),
+	simpleAltNativeResponse: []byte(`
+{
+    "native": {
+        "ver": 1,
         "link": {
             "url": "deeplink://deeplink/url/into/app",
             "fallback": "http: //i.am.a/URL",
