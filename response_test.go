@@ -10,9 +10,6 @@ import (
 
 var _ = Describe("Response", func() {
 	var subject *Response
-	var iptr = func(i int) *int { return &i }
-	var sptr = func(s string) *string { return &s }
-	var fptr = func(f float32) *float32 { return &f }
 
 	BeforeEach(func() {
 		subject = new(Response)
@@ -23,11 +20,10 @@ var _ = Describe("Response", func() {
 		Expect(err).To(Equal(ErrInvalidResID))
 		Expect(ok).To(BeFalse())
 
-		subject.Id = new(string)
-		*subject.Id = "RES_ID"
-		bid := (&Bid{}).SetID("BIDID").SetImpID("IMPID").SetPrice(0.0)
+		subject.Id = "RES_ID"
+		bid := Bid{Id: "BIDID", Impid: "IMPID", Price: 0.01}
 		sb := Seatbid{}
-		sb.Bid = append(sb.Bid, *bid)
+		sb.Bid = append(sb.Bid, bid)
 		subject.Seatbid = append(subject.Seatbid, sb)
 
 		ok, err = subject.Valid()
@@ -37,13 +33,13 @@ var _ = Describe("Response", func() {
 
 	It("should generate responses", func() {
 		nobid := Response{
-			Id:      sptr("32a69c6ba388f110487f9d1e63f77b22d86e916b"),
-			Nbr:     iptr(0),
+			Id:      "32a69c6ba388f110487f9d1e63f77b22d86e916b",
+			Nbr:     0,
 			Seatbid: []Seatbid{},
 		}
 		bin, err := json.Marshal(nobid)
 		Expect(err).NotTo(HaveOccurred())
-		Expect(string(bin)).To(Equal(`{"id":"32a69c6ba388f110487f9d1e63f77b22d86e916b","seatbid":[],"nbr":0}`))
+		Expect(string(bin)).To(Equal(`{"id":"32a69c6ba388f110487f9d1e63f77b22d86e916b","seatbid":[]}`))
 	})
 
 	It("should parse responses", func() {
@@ -51,16 +47,16 @@ var _ = Describe("Response", func() {
 		Expect(err).NotTo(HaveOccurred())
 
 		bid := Bid{
-			Id:      sptr("32a69c6ba388f110487f9d1e63f77b22d86e916b"),
-			Impid:   sptr("32a69c6ba388f110487f9d1e63f77b22d86e916b"),
-			Price:   fptr(0.065445),
-			Adid:    sptr("529833ce55314b19e8796116"),
-			Nurl:    sptr("http://ads.com/win/529833ce55314b19e8796116?won=${auction_price}"),
-			Adm:     sptr("<iframe src=\"foo.bar\"/>"),
+			Id:      "32a69c6ba388f110487f9d1e63f77b22d86e916b",
+			Impid:   "32a69c6ba388f110487f9d1e63f77b22d86e916b",
+			Price:   0.065445,
+			Adid:    "529833ce55314b19e8796116",
+			Nurl:    "http://ads.com/win/529833ce55314b19e8796116?won=${auction_price}",
+			Adm:     "<iframe src=\"foo.bar\"/>",
 			Adomain: []string{},
 			Attr:    []int{},
-			Cid:     sptr("529833ce55314b19e8796116"),
-			Crid:    sptr("529833ce55314b19e8796116_1385706446"),
+			Cid:     "529833ce55314b19e8796116",
+			Crid:    "529833ce55314b19e8796116_1385706446",
 		}
 
 		Expect(resp.Seatbid[0].Bid[0]).To(Equal(bid))

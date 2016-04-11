@@ -14,8 +14,7 @@ var _ = Describe("NativeRequest", func() {
 
 	It("should have defaults", func() {
 		subject.WithDefaults()
-		Expect(*subject.Ver).To(Equal("1"))
-		Expect(*subject.Plcmtcnt).To(Equal(1))
-		Expect(*subject.Seq).To(Equal(0))
+		Expect(subject.Ver).To(Equal("1"))
+		Expect(subject.Plcmtcnt).To(Equal(1))
 	})
 })

@@ -69,10 +69,10 @@ const (
 
 // Abstract third-party
 type ThirdParty struct {
-	Id     *string    `json:"id,omitempty"`
-	Name   *string    `json:"name,omitempty"`
+	Id     string     `json:"id,omitempty"`
+	Name   string     `json:"name,omitempty"`
 	Cat    []string   `json:"cat,omitempty"` // Array of IAB content categories
-	Domain *string    `json:"domain,omitempty"`
+	Domain string     `json:"domain,omitempty"`
 	Ext    Extensions `json:"ext,omitempty"`
 }
 
@@ -91,15 +91,15 @@ type Producer ThirdParty
 // (such as IP geo lookup), or by user registration information (for example provided to a publisher
 // through a user registration).
 type Geo struct {
-	Lat           *float64   `json:"lat,omitempty"`           // Latitude from -90 to 90
-	Lon           *float64   `json:"lon,omitempty"`           // Longitude from -180 to 180
-	Country       *string    `json:"country,omitempty"`       // Country using ISO 3166-1 Alpha 3
-	Region        *string    `json:"region,omitempty"`        // Region using ISO 3166-2
-	Regionfips104 *string    `json:"regionfips104,omitempty"` // Region of a country using fips 10-4
-	Metro         *string    `json:"metro,omitempty"`
-	City          *string    `json:"city,omitempty"`
-	Zip           *string    `json:"zip,omitempty"`
-	Type          *int       `json:"type,omitempty"` // Indicate the source of the geo data
+	Lat           float64    `json:"lat,omitempty"`           // Latitude from -90 to 90
+	Lon           float64    `json:"lon,omitempty"`           // Longitude from -180 to 180
+	Country       string     `json:"country,omitempty"`       // Country using ISO 3166-1 Alpha 3
+	Region        string     `json:"region,omitempty"`        // Region using ISO 3166-2
+	Regionfips104 string     `json:"regionfips104,omitempty"` // Region of a country using fips 10-4
+	Metro         string     `json:"metro,omitempty"`
+	City          string     `json:"city,omitempty"`
+	Zip           string     `json:"zip,omitempty"`
+	Type          int        `json:"type,omitempty"` // Indicate the source of the geo data
 	Ext           Extensions `json:"ext,omitempty"`
 }
 
@@ -108,12 +108,12 @@ type Geo struct {
 // platform derived IDs) and may be subject to rotation policies. However, this user ID must be
 // stable long enough to serve reasonably as the basis for frequency capping.
 type User struct {
-	Id         *string    `json:"id,omitempty"`       // Unique consumer ID of this user on the exchange
-	Buyeruid   *string    `json:"buyeruid,omitempty"` // Buyer's user ID
-	Yob        *int       `json:"yob,omitempty"`      // Year-of-birth
-	Gender     *string    `json:"gender,omitempty"`   // Gender ("M": male, "F" female, "O" Other)
-	Keywords   *string    `json:"keywords,omitempty"`
-	Customdata *string    `json:"customdata,omitempty"`
+	Id         string     `json:"id,omitempty"`       // Unique consumer ID of this user on the exchange
+	Buyeruid   string     `json:"buyeruid,omitempty"` // Buyer's user ID
+	Yob        int        `json:"yob,omitempty"`      // Year-of-birth
+	Gender     string     `json:"gender,omitempty"`   // Gender ("M": male, "F" female, "O" Other)
+	Keywords   string     `json:"keywords,omitempty"`
+	Customdata string     `json:"customdata,omitempty"`
 	Geo        *Geo       `json:"geo,omitempty"`
 	Data       []Data     `json:"data,omitempty"`
 	Ext        Extensions `json:"ext,omitempty"`
@@ -124,8 +124,8 @@ type User struct {
 // providers) as specified by the data object ID field.  A bid request can mix data objects from
 // multiple providers.
 type Data struct {
-	Id      *string    `json:"id,omitempty"`
-	Name    *string    `json:"name,omitempty"`
+	Id      string     `json:"id,omitempty"`
+	Name    string     `json:"name,omitempty"`
 	Segment []Segment  `json:"segment,omitempty"`
 	Ext     Extensions `json:"ext,omitempty"`
 }
@@ -134,38 +134,38 @@ type Data struct {
 // bid request.  Segment objects convey specific units of information from the provider identified
 // in the parent data object.
 type Segment struct {
-	Id    *string    `json:"id,omitempty"`
-	Name  *string    `json:"name,omitempty"`
-	Value *string    `json:"value,omitempty"`
+	Id    string     `json:"id,omitempty"`
+	Name  string     `json:"name,omitempty"`
+	Value string     `json:"value,omitempty"`
 	Ext   Extensions `json:"ext,omitempty"`
 }
 
 // The "regs" object contains any legal, governmental, or industry regulations that
 // apply to the request
 type Regulations struct {
-	Coppa *int       `json:"coppa,omitempty"`
+	Coppa int        `json:"coppa,omitempty"`
 	Ext   Extensions `json:"ext,omitempty"`
 }
 
 // Private Marketplace Object
 type Pmp struct {
-	Private *int         `json:"private_auction,omitempty"`
+	Private int          `json:"private_auction,omitempty"`
 	Deals   []DirectDeal `json:"deals,omitempty"`
 	Ext     Extensions   `json:"ext,omitempty"`
 }
 
 // PMP Direct Deal
 type DirectDeal struct {
-	Id          *string    `json:"id,omitempty"` // Unique deal ID
-	Bidfloor    *float32   `json:"bidfloor,omitempty"`
-	Bidfloorcur *string    `json:"bidfloorcur,omitempty"` // Currency of bid floor
+	Id          string     `json:"id,omitempty"` // Unique deal ID
+	Bidfloor    float32    `json:"bidfloor,omitempty"`
+	Bidfloorcur string     `json:"bidfloorcur,omitempty"` // Currency of bid floor
 	Wseat       []string   `json:"wseat,omitempty"`       // Array of buyer seats allowed to bid on this Direct Deal.
 	Wadomain    []string   `json:"wadomain,omitempty"`    // Array of advertiser domains allowed to bid on this Direct Deal
-	At          *int       `json:"at,omitempty"`          // Auction type, Default: 2 ("1": first price auction, "2": then second price auction)
+	At          int        `json:"at,omitempty"`          // Auction type, Default: 2 ("1": first price auction, "2": then second price auction)
 	Ext         Extensions `json:"ext,omitempty"`
 
 	Seats []string `json:"seats,omitempty"` // DEPRECATED: kept for backwards compatibility
-	Type  *int     `json:"type,omitempty"`  // DEPRECATED: kept for backwards compatibility
+	Type  int      `json:"type,omitempty"`  // DEPRECATED: kept for backwards compatibility
 }
 
 // General Extensions

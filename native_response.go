@@ -10,17 +10,17 @@ type NativeAdm struct {
 }
 
 type NativeResponse struct {
-	Ver         *string         `json:"ver,omitempty"` // Version of the Native Markup version in use
+	Ver         string          `json:"ver,omitempty"` // Version of the Native Markup version in use
 	Assets      []ResponseAsset `json:"assets"`        // Array of Asset Objects
 	Link        *Link           `json:"link"`
 	Imptrackers []string        `json:"imptrackers,omitempty"`
-	Jstracker   *string         `json:"jstracker, omitempty"`
+	Jstracker   string          `json:"jstracker, omitempty"`
 	Ext         Extensions      `json:"ext,omitempty"`
 }
 
 type ResponseAsset struct {
-	Id       *int           `json:"id"`                 // Unique asset ID, assigned by exchange
-	Required *int           `json:"required,omitempty"` // Set to 1 if asset is required
+	Id       int            `json:"id"`                 // Unique asset ID, assigned by exchange
+	Required int            `json:"required,omitempty"` // Set to 1 if asset is required
 	Title    *ResponseTitle `json:"title,omitempty"`    // Title object for title assets
 	Img      *ResponseImg   `json:"img,omitempty"`      // Image object for image assets
 	Video    *ResponseVideo `json:"video,omitempty"`    // Video object for video assets
@@ -30,38 +30,32 @@ type ResponseAsset struct {
 }
 
 type Link struct {
-	Url           *string    `json:"url"`
+	Url           string     `json:"url"`
 	Clicktrackers []string   `json:"clicktrackers,omitempty"`
-	Fallback      *string    `json:"fallback,omitempty"`
+	Fallback      string     `json:"fallback,omitempty"`
 	Ext           Extensions `json:"ext,omitempty"`
 }
 
 type ResponseTitle struct {
-	Text *string    `json:"text"`
+	Text string     `json:"text"`
 	Ext  Extensions `json:"ext,omitempty"`
 }
 
 type ResponseImg struct {
-	Url *string    `json:"url"`
-	W   *int       `json:"w,omitempty"` // Width
-	H   *int       `json:"h,omitempty"` // Height
+	Url string     `json:"url"`
+	W   int        `json:"w,omitempty"` // Width
+	H   int        `json:"h,omitempty"` // Height
 	Ext Extensions `json:"ext,omitempty"`
 }
 
 type ResponseData struct {
-	Label *string    `json:"label,omitempty"`
-	Value *string    `json:"value"`
+	Label string     `json:"label,omitempty"`
+	Value string     `json:"value"`
 	Ext   Extensions `json:"ext,omitempty"`
 }
 
 type ResponseVideo struct {
-	Vasttag *string `json:"vasttag"`
-}
-
-// Set the Asset
-func (nativeResponse *NativeResponse) SetAssets(a *ResponseAsset) *NativeResponse {
-	nativeResponse.Assets = append(nativeResponse.Assets, *a)
-	return nativeResponse
+	Vasttag string `json:"vasttag"`
 }
 
 //Parses an OpenRTB Native Response from an io.Reader
@@ -85,21 +79,11 @@ func ParseNativeAdmBytes(data []byte) (adm *NativeAdm, err error) {
 
 // Applies NativeResponse defaults
 func (resp *NativeResponse) WithDefaults() *NativeResponse {
-	if resp.Ver == nil {
-		resp.Ver = new(string)
-		*resp.Ver = "1"
+	if len(resp.Ver) == 0 {
+		resp.Ver = "1"
 	}
 	for id, asset := range resp.Assets {
-		resp.Assets[id] = *asset.WithDefaults()
+		resp.Assets[id] = asset
 	}
 	return resp
-}
-
-// Applies ResponseAsset defaults
-func (asset *ResponseAsset) WithDefaults() *ResponseAsset {
-	if asset.Required == nil {
-		asset.Required = new(int)
-		*asset.Required = 0
-	}
-	return asset
 }
