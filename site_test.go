@@ -15,9 +15,4 @@ var _ = Describe("Site", func() {
 	It("should have accessors", func() {
 		Expect(subject.IsPrivacyPolicy()).To(BeFalse())
 	})
-
-	It("should have defaults", func() {
-		subject.WithDefaults()
-		Expect(*subject.Privacypolicy).To(Equal(0))
-	})
 })

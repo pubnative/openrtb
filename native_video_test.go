@@ -12,25 +12,19 @@ var _ = Describe("NativeVideo", func() {
 
 	Describe("Seq()", func() {
 		It("should return '1' as default", func() {
-			Expect(subject.Seq()).To(Equal(1))
+			subject.WithDefaults()
+			Expect(subject.Sequence).To(Equal(1))
 		})
 	})
 
 	Describe("IsBoxingAllowed()", func() {
 		It("should return true as default", func() {
+			subject.WithDefaults()
 			Expect(subject.IsBoxingAllowed()).To(BeTrue())
 		})
 
 		It("should return false when set as false", func() {
-			subject.Boxingallowed = new(int)
-			*subject.Boxingallowed = 0
 			Expect(subject.IsBoxingAllowed()).To(BeFalse())
-		})
-	})
-
-	Describe("Position()", func() {
-		It("should return 0/AD_POST_UNKNOWN as default", func() {
-			Expect(subject.Position()).To(Equal(0))
 		})
 	})
 
@@ -43,19 +37,19 @@ var _ = Describe("NativeVideo", func() {
 			ok, err = subject.Valid()
 			Expect(err.Error()).To(Equal("openrtb parse: video linearity missing"))
 
-			subject.SetLinearity(2) // With Linearity
+			subject.Linearity = 2 // With Linearity
 			ok, err = subject.Valid()
 			Expect(err.Error()).To(Equal("openrtb parse: video minduration missing"))
 
-			subject.SetMinduration(1) // With Minduration
+			subject.Minduration = 1 // With Minduration
 			ok, err = subject.Valid()
 			Expect(err.Error()).To(Equal("openrtb parse: video maxduration missing"))
 
-			subject.SetMaxduration(5) // With Maxduration
+			subject.Maxduration = 5 // With Maxduration
 			ok, err = subject.Valid()
 			Expect(err.Error()).To(Equal("openrtb parse: video protocol missing"))
 
-			subject.SetProtocol(1) // With Protocol
+			subject.Protocol = 1 // With Protocol
 			ok, err = subject.Valid()
 			Expect(err).NotTo(HaveOccurred())
 			Expect(ok).To(BeTrue())
@@ -63,12 +57,10 @@ var _ = Describe("NativeVideo", func() {
 	})
 
 	Describe("WithDefaults()", func() {
-
 		It("should return object with default values", func() {
 			subject.WithDefaults()
-			Expect(*subject.Sequence).To(Equal(1))
-			Expect(*subject.Boxingallowed).To(Equal(1))
-			Expect(*subject.Pos).To(Equal(AD_POS_UNKNOWN))
+			Expect(subject.Sequence).To(Equal(1))
+			Expect(subject.Boxingallowed).To(Equal(1))
 		})
 	})
 

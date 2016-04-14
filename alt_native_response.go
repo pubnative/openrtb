@@ -10,11 +10,11 @@ type AltNativeAdm struct {
 }
 
 type AltNativeResponse struct {
-	Ver         *int            `json:"ver,omitempty"` // Version of the Native Markup version in use
+	Ver         int             `json:"ver,omitempty"` // Version of the Native Markup version in use
 	Assets      []ResponseAsset `json:"assets"`        // Array of Asset Objects
 	Link        *Link           `json:"link"`
 	Imptrackers []string        `json:"imptrackers,omitempty"`
-	Jstracker   *string         `json:"jstracker, omitempty"`
+	Jstracker   string          `json:"jstracker, omitempty"`
 	Ext         Extensions      `json:"ext,omitempty"`
 }
 
@@ -39,18 +39,11 @@ func ParseAltNativeAdmBytes(data []byte) (adm *AltNativeAdm, err error) {
 
 // Applies AltNativeResponse defaults
 func (resp *AltNativeResponse) WithDefaults() *AltNativeResponse {
-	if resp.Ver == nil {
-		resp.Ver = new(int)
-		*resp.Ver = 1
+	if resp.Ver == 0 {
+		resp.Ver = 1
 	}
 	for id, asset := range resp.Assets {
-		resp.Assets[id] = *asset.WithDefaults()
+		resp.Assets[id] = asset
 	}
 	return resp
-}
-
-// Set the Asset
-func (nativeResponse *AltNativeResponse) SetAssets(a *ResponseAsset) *AltNativeResponse {
-	nativeResponse.Assets = append(nativeResponse.Assets, *a)
-	return nativeResponse
 }

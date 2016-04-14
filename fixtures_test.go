@@ -1,8 +1,5 @@
 package openrtb
 
-var sptr = func(s string) *string { return &s }
-var iptr = func(i int) *int { return &i }
-
 var testFixtures = struct {
 	simpleBanner            []byte
 	expandableCreative      []byte
@@ -277,10 +274,10 @@ var testFixtures = struct {
     }
 }
 `),
-	simpleLink:  Link{Url: sptr("http: //i.am.a/URL")},
-	simpleImg:   ResponseImg{Url: sptr("http: //cdn.mobad.com/ad.png"), W: iptr(64), H: iptr(64)},
-	simpleTitle: ResponseTitle{Text: sptr("InstallBOA")},
-	simpleData:  ResponseData{Value: sptr("5")},
-	installData: ResponseData{Value: sptr("Install")},
-	fullLink:    Link{Url: sptr("deeplink://deeplink/url/into/app"), Clicktrackers: []string{"http: //a.com/a", "http: //b.com/b"}, Fallback: sptr("http: //i.am.a/URL")},
+	simpleLink:  Link{Url: "http: //i.am.a/URL"},
+	simpleImg:   ResponseImg{Url: "http: //cdn.mobad.com/ad.png", W: 64, H: 64},
+	simpleTitle: ResponseTitle{Text: "InstallBOA"},
+	simpleData:  ResponseData{Value: "5"},
+	installData: ResponseData{Value: "Install"},
+	fullLink:    Link{Url: "deeplink://deeplink/url/into/app", Clicktrackers: []string{"http: //a.com/a", "http: //b.com/b"}, Fallback: "http: //i.am.a/URL"},
 }

@@ -12,8 +12,8 @@ import (
 // only interested in winning any if it can win them all (i.e., all or nothing).
 type Seatbid struct {
 	Bid   []Bid      `json:"bid"`             // Array of bid objects; each realtes to an imp, if exchange supported can have many bid objects.
-	Seat  *string    `json:"seat,omitempty"`  // ID of the bidder seat optional string ID of the bidder seat on whose behalf this bid is made.
-	Group *int       `json:"group,omitempty"` // '1' means impression must be won-lost as a group; default is '0'.
+	Seat  string     `json:"seat,omitempty"`  // ID of the bidder seat optional string ID of the bidder seat on whose behalf this bid is made.
+	Group int        `json:"group,omitempty"` // '1' means impression must be won-lost as a group; default is '0'.
 	Ext   Extensions `json:"ext,omitempty"`
 }
 

@@ -17,8 +17,8 @@ var _ = Describe("Seatbid", func() {
 		Expect(err).To(HaveOccurred())
 		Expect(ok).To(BeFalse())
 
-		bid := (&Bid{}).SetID("BIDID").SetImpID("IMPID").SetPrice(0.0)
-		subject.Bid = append(subject.Bid, *bid)
+		bid := Bid{Id: "BIDID", Impid: "IMPID", Price: 0.01}
+		subject.Bid = append(subject.Bid, bid)
 
 		ok, err = subject.Valid()
 		Expect(err).NotTo(HaveOccurred())

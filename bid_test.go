@@ -17,9 +17,9 @@ var _ = Describe("Bid", func() {
 		Expect(err).To(HaveOccurred())
 		Expect(ok).To(BeFalse())
 
-		subject.SetID("BIDID")
-		subject.SetImpID("IMPID")
-		subject.SetPrice(0.0)
+		subject.Id = "BIDID"
+		subject.Impid = "IMPID"
+		subject.Price = 0.01
 
 		ok, err = subject.Valid()
 		Expect(err).NotTo(HaveOccurred())
