@@ -154,6 +154,13 @@ type Pmp struct {
 	Ext     Extensions   `json:"ext,omitempty"`
 }
 
+func (p *Pmp) WithDefaults() *Pmp {
+	for i := range p.Deals {
+		p.Deals[i] = *(&p.Deals[i]).WithDefaults()
+	}
+	return p
+}
+
 // PMP Direct Deal
 type DirectDeal struct {
 	Id          string     `json:"id,omitempty"` // Unique deal ID
@@ -166,6 +173,13 @@ type DirectDeal struct {
 
 	Seats []string `json:"seats,omitempty"` // DEPRECATED: kept for backwards compatibility
 	Type  int      `json:"type,omitempty"`  // DEPRECATED: kept for backwards compatibility
+}
+
+func (d *DirectDeal) WithDefaults() *DirectDeal {
+	if d.At == 0 {
+		d.At = 2
+	}
+	return d
 }
 
 // General Extensions

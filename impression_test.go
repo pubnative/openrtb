@@ -46,7 +46,9 @@ var _ = Describe("Impression", func() {
 	})
 
 	It("should have defaults", func() {
+		subject.Pmp = &Pmp{Deals: []DirectDeal{DirectDeal{}}}
 		subject.WithDefaults()
 		Expect(subject.Bidfloorcur).To(Equal("USD"))
+		Expect(subject.Pmp.Deals[0].At).To(Equal(2))
 	})
 })

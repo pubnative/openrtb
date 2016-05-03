@@ -66,5 +66,9 @@ func (imp *Impression) WithDefaults() *Impression {
 		imp.Video.WithDefaults()
 	}
 
+	if imp.Pmp != nil {
+		imp.Pmp.WithDefaults()
+	}
+
 	return imp
 }
