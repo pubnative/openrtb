@@ -19,6 +19,7 @@ type Bid struct {
 	Nurl    string     `json:"nurl,omitempty"`    // Win notice URL.
 	Adm     string     `json:"adm,omitempty"`     // Actual ad markup. XHTML if a response to a banner object, or VAST XML if a response to a video object.
 	Adomain []string   `json:"adomain,omitempty"` // Advertiser’s primary or top-level domain for advertiser checking; or multiple if imp rotating.
+	Bundle  string     `json:"bundle,omitempty"`  // Bundle or package name.
 	Iurl    string     `json:"iurl,omitempty"`    // Sample image URL.
 	Cid     string     `json:"cid,omitempty"`     // Campaign ID that appears with the Ad markup.
 	Crid    string     `json:"crid,omitempty"`    // Creative ID for reporting content issues or defects. This could also be used as a reference to a creative ID that is posted with an exchange.
