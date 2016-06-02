@@ -1,17 +1,19 @@
 package openrtb
 
 import (
-	"golang.org/x/net/html"
 	"bytes"
+
+	"golang.org/x/net/html"
 )
 
 type BannerResponse struct {
-	ClickUrl    string
-	ImageUrl    string
+	ClickUrl string
+	ImageUrl string
+	Title    string
 }
 
 //Parses an OpenRTB Banner Response from bytes
-func ParseBannerAdmBytes(data []byte) ( *BannerResponse, error) {
+func ParseBannerAdmBytes(data []byte) (*BannerResponse, error) {
 	banner := BannerResponse{}
 	r := bytes.NewReader(data)
 	z := html.NewTokenizer(r)
@@ -41,7 +43,12 @@ func ParseBannerAdmBytes(data []byte) ( *BannerResponse, error) {
 				for _, a := range t.Attr {
 					if a.Key == "src" {
 						banner.ImageUrl = a.Val
-						break
+						continue
+					}
+
+					if a.Key == "alt" {
+						banner.Title = a.Val
+						continue
 					}
 				}
 			}

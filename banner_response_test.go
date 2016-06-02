@@ -12,5 +12,6 @@ var _ = Describe("BannerResponse", func() {
 		Expect(err).NotTo(HaveOccurred())
 		Expect(actual.ClickUrl).To(Equal("http://tracking.network.example.com/click"))
 		Expect(actual.ImageUrl).To(Equal("http://cdn.image.example.com/image.jpg"))
+		Expect(actual.Title).To(Equal("Test App Android"))
 	})
 })
