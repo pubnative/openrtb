@@ -6,6 +6,7 @@ var testFixtures = struct {
 	simpleResponse          []byte
 	simpleNativeResponse    []byte
 	simpleAltNativeResponse []byte
+	nullLiteralResponse     []byte
 	simpleLink              Link
 	simpleImg               ResponseImg
 	simpleTitle             ResponseTitle
@@ -274,10 +275,11 @@ var testFixtures = struct {
     }
 }
 `),
-	simpleLink:  Link{Url: "http: //i.am.a/URL"},
-	simpleImg:   ResponseImg{Url: "http: //cdn.mobad.com/ad.png", W: 64, H: 64},
-	simpleTitle: ResponseTitle{Text: "InstallBOA"},
-	simpleData:  ResponseData{Value: "5"},
-	installData: ResponseData{Value: "Install"},
-	fullLink:    Link{Url: "deeplink://deeplink/url/into/app", Clicktrackers: []string{"http: //a.com/a", "http: //b.com/b"}, Fallback: "http: //i.am.a/URL"},
+	nullLiteralResponse: []byte("null"),
+	simpleLink:          Link{Url: "http: //i.am.a/URL"},
+	simpleImg:           ResponseImg{Url: "http: //cdn.mobad.com/ad.png", W: 64, H: 64},
+	simpleTitle:         ResponseTitle{Text: "InstallBOA"},
+	simpleData:          ResponseData{Value: "5"},
+	installData:         ResponseData{Value: "Install"},
+	fullLink:            Link{Url: "deeplink://deeplink/url/into/app", Clicktrackers: []string{"http: //a.com/a", "http: //b.com/b"}, Fallback: "http: //i.am.a/URL"},
 }

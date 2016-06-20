@@ -61,4 +61,14 @@ var _ = Describe("Response", func() {
 
 		Expect(resp.Seatbid[0].Bid[0]).To(Equal(bid))
 	})
+
+	It("should return error when parsing null literal", func() {
+		resp, err := ParseResponse(bytes.NewBuffer(testFixtures.nullLiteralResponse))
+		Expect(resp).To(BeNil())
+		Expect(err).To(MatchError("JSON null literal encountered when parsing the response"))
+
+		resp, err = ParseResponseBytes(testFixtures.nullLiteralResponse)
+		Expect(resp).To(BeNil())
+		Expect(err).To(MatchError("JSON null literal encountered when parsing the response"))
+	})
 })

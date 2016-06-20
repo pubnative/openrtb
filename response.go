@@ -3,6 +3,7 @@ package openrtb
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
@@ -19,6 +20,7 @@ type Response struct {
 	Nbr        int        `json:"nbr,omitempty"`        // Reason for not bidding, where 0 = unknown error, 1 = technical error, 2 = invalid request, 3 = known web spider, 4 = suspected Non-Human Traffic, 5 = cloud, data center, or proxy IP, 6 = unsupported device, 7 = blocked publisher or site, 8 = unmatched user
 	Ext        Extensions `json:"ext,omitempty"`        // Custom specifications in Json
 }
+type NullLiteralError error
 
 // Validation errors
 var (
@@ -31,14 +33,19 @@ func ParseResponse(reader io.Reader) (resp *Response, err error) {
 	dec := json.NewDecoder(reader)
 	if err = dec.Decode(&resp); err != nil {
 		return nil, err
+	} else if resp == nil {
+		return nil, NullLiteralError(errors.New("JSON null literal encountered when parsing the response"))
 	}
 	return resp, nil
 }
 
 //Parses an OpenRTB Response from bytes
 func ParseResponseBytes(data []byte) (resp *Response, err error) {
+	fmt.Println(data)
 	if err = json.Unmarshal(data, &resp); err != nil {
 		return nil, err
+	} else if resp == nil {
+		return nil, NullLiteralError(errors.New("JSON null literal encountered when parsing the response"))
 	}
 	return resp, nil
 }
