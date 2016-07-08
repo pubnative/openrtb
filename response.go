@@ -3,7 +3,6 @@ package openrtb
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 )
 
@@ -41,7 +40,6 @@ func ParseResponse(reader io.Reader) (resp *Response, err error) {
 
 //Parses an OpenRTB Response from bytes
 func ParseResponseBytes(data []byte) (resp *Response, err error) {
-	fmt.Println(data)
 	if err = json.Unmarshal(data, &resp); err != nil {
 		return nil, err
 	} else if resp == nil {
