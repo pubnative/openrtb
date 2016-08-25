@@ -13,7 +13,7 @@ var _ = Describe("NativeResponse", func() {
 	})
 
 	It("should have defaults", func() {
-		subject.Assets = []ResponseAsset{ResponseAsset{}}
+		subject.Assets = []ResponseAsset{{}}
 		subject.WithDefaults()
 
 		Expect(subject.Ver).To(Equal("1"))
@@ -25,26 +25,26 @@ var _ = Describe("NativeResponse", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 		nativeAdm := NativeAdm{
-			&NativeResponse{
+			Native: &NativeResponse{
 				Ver: "1",
 				Assets: []ResponseAsset{
-					ResponseAsset{
+					{
 						Id:       1,
 						Required: 0,
 						Title:    &testFixtures.simpleTitle,
 						Link:     &testFixtures.simpleLink,
 					},
-					ResponseAsset{
+					{
 						Id:       2,
 						Required: 0,
 						Data:     &testFixtures.simpleData,
 					},
-					ResponseAsset{
+					{
 						Id:       3,
 						Required: 0,
 						Img:      &testFixtures.simpleImg,
 					},
-					ResponseAsset{
+					{
 						Id:       4,
 						Required: 0,
 						Data:     &testFixtures.installData,
@@ -57,5 +57,10 @@ var _ = Describe("NativeResponse", func() {
 		}
 
 		Expect(resp).To(Equal(&nativeAdm))
+	})
+
+	It("returns an error when response doesn't contain native node", func() {
+		_, err := ParseNativeAdmBytes(testFixtures.nullLiteralResponse)
+		Expect(err).To(Equal(ErrBlankNativeResponse))
 	})
 })

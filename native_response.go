@@ -2,8 +2,11 @@ package openrtb
 
 import (
 	"encoding/json"
+	"errors"
 	"io"
 )
+
+var ErrBlankNativeResponse = errors.New(`Native response doesn't contain "native" node`)
 
 type NativeAdm struct {
 	Native *NativeResponse
@@ -64,8 +67,7 @@ func ParseNativeAdm(reader io.Reader) (adm *NativeAdm, err error) {
 	if err = dec.Decode(&adm); err != nil {
 		return nil, err
 	}
-	adm.Native = adm.Native.WithDefaults()
-	return adm, nil
+	return nativeAdmWithDefaults(adm)
 }
 
 //Parses an OpenRTB Native Response from bytes
@@ -73,8 +75,7 @@ func ParseNativeAdmBytes(data []byte) (adm *NativeAdm, err error) {
 	if err = json.Unmarshal(data, &adm); err != nil {
 		return nil, err
 	}
-	adm.Native = adm.Native.WithDefaults()
-	return adm, nil
+	return nativeAdmWithDefaults(adm)
 }
 
 // Applies NativeResponse defaults
@@ -86,4 +87,12 @@ func (resp *NativeResponse) WithDefaults() *NativeResponse {
 		resp.Assets[id] = asset
 	}
 	return resp
+}
+
+func nativeAdmWithDefaults(adm *NativeAdm) (*NativeAdm, error) {
+	if adm == nil || adm.Native == nil {
+		return adm, ErrBlankNativeResponse
+	}
+	adm.Native = adm.Native.WithDefaults()
+	return adm, nil
 }
