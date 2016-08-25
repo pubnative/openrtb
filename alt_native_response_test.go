@@ -22,26 +22,26 @@ var _ = Describe("AltNativeResponse", func() {
 
 		Expect(err).NotTo(HaveOccurred())
 		nativeAdm := AltNativeAdm{
-			&AltNativeResponse{
+			Native: &AltNativeResponse{
 				Ver: 1,
 				Assets: []ResponseAsset{
-					ResponseAsset{
+					{
 						Id:       1,
 						Required: 0,
 						Title:    &testFixtures.simpleTitle,
 						Link:     &testFixtures.simpleLink,
 					},
-					ResponseAsset{
+					{
 						Id:       2,
 						Required: 0,
 						Data:     &testFixtures.simpleData,
 					},
-					ResponseAsset{
+					{
 						Id:       3,
 						Required: 0,
 						Img:      &testFixtures.simpleImg,
 					},
-					ResponseAsset{
+					{
 						Id:       4,
 						Required: 0,
 						Data:     &testFixtures.installData,
@@ -54,5 +54,10 @@ var _ = Describe("AltNativeResponse", func() {
 		}
 
 		Expect(resp).To(Equal(&nativeAdm))
+	})
+
+	It("returns an error when response doesn't contain native node", func() {
+		_, err := ParseAltNativeAdmBytes(testFixtures.nullLiteralResponse)
+		Expect(err).To(Equal(ErrBlankNativeResponse))
 	})
 })

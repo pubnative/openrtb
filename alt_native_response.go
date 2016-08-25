@@ -24,8 +24,7 @@ func ParseAltNativeAdm(reader io.Reader) (adm *AltNativeAdm, err error) {
 	if err = dec.Decode(&adm); err != nil {
 		return nil, err
 	}
-	adm.Native = adm.Native.WithDefaults()
-	return adm, nil
+	return altNativeAdmWithDefaults(adm)
 }
 
 //Parses an OpenRTB Native Response from bytes
@@ -33,8 +32,7 @@ func ParseAltNativeAdmBytes(data []byte) (adm *AltNativeAdm, err error) {
 	if err = json.Unmarshal(data, &adm); err != nil {
 		return nil, err
 	}
-	adm.Native = adm.Native.WithDefaults()
-	return adm, nil
+	return altNativeAdmWithDefaults(adm)
 }
 
 // Applies AltNativeResponse defaults
@@ -46,4 +44,12 @@ func (resp *AltNativeResponse) WithDefaults() *AltNativeResponse {
 		resp.Assets[id] = asset
 	}
 	return resp
+}
+
+func altNativeAdmWithDefaults(adm *AltNativeAdm) (*AltNativeAdm, error) {
+	if adm == nil || adm.Native == nil {
+		return adm, ErrBlankNativeResponse
+	}
+	adm.Native = adm.Native.WithDefaults()
+	return adm, nil
 }
