@@ -29,6 +29,25 @@ type Request struct {
 	Pmp *Pmp `json:"pmp,omitempty"` // DEPRECATED: kept for backwards compatibility
 }
 
+// Version of the struct that can be used to build the top object from pre-serialised elements
+type CachedRequest struct {
+	Id      *json.RawMessage `json:"id"`
+	Imp     *json.RawMessage `json:"imp,omitempty"`
+	Site    *json.RawMessage `json:"site,omitempty"`
+	App     *json.RawMessage `json:"app,omitempty"`
+	Device  *json.RawMessage `json:"device,omitempty"`
+	User    *json.RawMessage `json:"user,omitempty"`
+	At      *json.RawMessage `json:"at"`
+	Tmax    *json.RawMessage `json:"tmax,omitempty"`
+	Wseat   *json.RawMessage `json:"wseat,omitempty"`
+	Allimps *json.RawMessage `json:"allimps,omitempty"`
+	Cur     *json.RawMessage `json:"cur,omitempty"`
+	Bcat    *json.RawMessage `json:"bcat,omitempty"`
+	Badv    *json.RawMessage `json:"badv,omitempty"`
+	Regs    *json.RawMessage `json:"regs,omitempty"`
+	Ext     *json.RawMessage `json:"ext,omitempty"`
+}
+
 // Parses an OpenRTB Request struct from an io.Reader
 // Optionally validates and applies defaults to the Request object (recommended)
 func ParseRequest(reader io.Reader) (req *Request, err error) {
