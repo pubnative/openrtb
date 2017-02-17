@@ -28,7 +28,7 @@ type ResponseAsset struct {
 	Img      *ResponseImg   `json:"img,omitempty"`      // Image object for image assets
 	Video    *ResponseVideo `json:"video,omitempty"`    // Video object for video assets
 	Data     *ResponseData  `json:"data,omitempty"`     // Data object for ratings, price, etc.
-	Link     *Link          `json:"link"`
+	Link     *Link          `json:"link,omitempty"`
 	Ext      Extensions     `json:"ext,omitempty"`
 }
 
