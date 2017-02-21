@@ -17,7 +17,7 @@ type NativeResponse struct {
 	Assets      []ResponseAsset `json:"assets"`        // Array of Asset Objects
 	Link        *Link           `json:"link"`
 	Imptrackers []string        `json:"imptrackers,omitempty"`
-	Jstracker   string          `json:"jstracker, omitempty"`
+	Jstracker   string          `json:"jstracker,omitempty"`
 	Ext         Extensions      `json:"ext,omitempty"`
 }
 
