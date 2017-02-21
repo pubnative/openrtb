@@ -5,6 +5,7 @@ var testFixtures = struct {
 	expandableCreative      []byte
 	simpleResponse          []byte
 	simpleNativeResponse    []byte
+	simpleBannerResponse    []byte
 	simpleAltNativeResponse []byte
 	nullLiteralResponse     []byte
 	simpleLink              Link
@@ -221,6 +222,11 @@ var testFixtures = struct {
         ]
     }
 }
+`),
+	simpleBannerResponse: []byte(`
+<a href="http://tracking.network.example.com/click">
+  <img width="320" height="50" src="http://cdn.image.example.com/image.jpg" alt="Test App Android" />
+</a>
 `),
 	simpleAltNativeResponse: []byte(`
 {
