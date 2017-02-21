@@ -9,7 +9,7 @@ import (
 var ErrBlankNativeResponse = errors.New(`Native response doesn't contain "native" node`)
 
 type NativeAdm struct {
-	Native *NativeResponse
+	Native *NativeResponse `json:"native,omitempty"`
 }
 
 type NativeResponse struct {
