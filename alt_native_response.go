@@ -6,7 +6,7 @@ import (
 )
 
 type AltNativeAdm struct {
-	Native *AltNativeResponse
+	Native *AltNativeResponse `json:"native,omitempty"`
 }
 
 type AltNativeResponse struct {
