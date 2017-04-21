@@ -60,6 +60,24 @@ const (
 	VIDEO_QUALITY_PROFESSIONAL = 1
 	VIDEO_QUALITY_PROSUMER     = 2
 	VIDEO_QUALITY_UGC          = 3
+
+	// 5.3 Creative Attributes
+	CREATIVE_AUDIO_AUTO_PLAY                = 1
+	CREATIVE_AUDIO_USER_INITIATED           = 2
+	CREATIVE_EXPANDABLE_AUTOMATIC           = 3
+	CREATIVE_EXPANDABLE_ON_CLICK            = 4
+	CREATIVE_EXPANDABLE_ON_ROLLOVER         = 5
+	CREATIVE_IN_BANNER_VIDEO_AUTO_PLAY      = 6
+	CREATIVE_IN_BANNER_VIDEO_USER_INITIATED = 7
+	CREATIVE_POP                            = 8
+	CREATIVE_PROVOCATIVE                    = 9
+	CREATIVE_SHAKY                          = 10
+	CREATIVE_SURVEYS                        = 11
+	CREATIVE_TEXT_ONLY                      = 12
+	CREATIVE_USER_INTERACTIVE               = 13
+	CREATIVE_WINDOWS_DIALOG                 = 14
+	CREATIVE_HAS_AUDIO_ON_OFF_BUTTON        = 15
+	CREATIVE_AD_CAN_BE_SKIPPED              = 16
 )
 
 /*************************************************************************
