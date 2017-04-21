@@ -78,6 +78,13 @@ const (
 	CREATIVE_WINDOWS_DIALOG                 = 14
 	CREATIVE_HAS_AUDIO_ON_OFF_BUTTON        = 15
 	CREATIVE_AD_CAN_BE_SKIPPED              = 16
+
+	// 5.6 API Frameworks
+	API_VPAID1 = 1
+	API_VPAID2 = 2
+	API_MRAID1 = 3
+	API_ORMMA  = 4
+	API_MRAID2 = 5
 )
 
 /*************************************************************************
