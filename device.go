@@ -5,6 +5,7 @@ package openrtb
 // set top box or other digital device.
 type Device struct {
 	Dnt            int        `json:"dnt,omitempty"` // "1": Do not track
+	Lmt            int        `json:"lmt,omitempty"` // "1": Limit Ad Tracking
 	Ua             string     `json:"ua,omitempty"`  // User agent
 	Ip             string     `json:"ip,omitempty"`  // IPv4
 	Geo            *Geo       `json:"geo,omitempty"`
@@ -22,6 +23,11 @@ type Device struct {
 	Os             string     `json:"os,omitempty"`       // Device OS
 	Osv            string     `json:"osv,omitempty"`      // Device OS version
 	Js             int        `json:"js,omitempty"`       // Javascript status ("0": Disabled, "1": Enabled)
+	Hwv            string     `json:"hwv,omitempty"`      // Hardware version
+	Ppi            int        `json:"ppi,omitempty"`      // Screen size as pixels per linear inch.
+	Pxratio        float32    `json:"pxratio,omitempty"`  // The ratio of physical pixels to device independent pixels.
+	H              int        `json:"h,omitempty"`        // Height
+	W              int        `json:"w,omitempty"`        // Width
 	Connectiontype int        `json:"connectiontype,omitempty"`
 	Devicetype     int        `json:"devicetype,omitempty"`
 	Flashver       string     `json:"flashver,omitempty"` // Flash version
