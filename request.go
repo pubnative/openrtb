@@ -16,6 +16,7 @@ type Request struct {
 	App     *App         `json:"app,omitempty"`
 	Device  *Device      `json:"device,omitempty"`
 	User    *User        `json:"user,omitempty"`
+	Test    int          `json:"test"`              // Indicator of test mode, Default: 0 ("0": live mode, "1": test mode)
 	At      int          `json:"at"`                // Auction type, Default: 2 ("1": first price auction, "2": then second price auction)
 	Tmax    int          `json:"tmax,omitempty"`    // Maximum amount of time in milliseconds to submit a bid
 	Wseat   []string     `json:"wseat,omitempty"`   // Array of buyer seats allowed to bid on this auction
